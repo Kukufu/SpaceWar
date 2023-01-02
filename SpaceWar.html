@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceWar</title>
+
+    <style>
+        canvas {
+            background-color:rgba(0, 0, 0, 0.8)
+        }
+    </style>
+
+    <script>
+        let KEY_SPACE = false; // 32
+        let KEY_UP = false; // 38
+        let KEY_DOWN = false; // 40
+        let canvas;
+        let ctx;
+        let backgroundImage = new Image();
+
+
+        let rocket = {
+            x: 50,
+            y: 350,
+            width: 150,
+            height: 80,
+            src: 'Images/rocket.png'
+        };
+
+        let ufo = {
+            x: 1100,
+            y: 400,
+            width: 80,
+            height: 70,
+            src: 'Images/ufo.png'
+        };
+            
+
+        window.addEventListener('keydown', (e) => {
+    if (e.keyCode == 39) {
+        keyboard.right = true;
+    }
+    if (e.keyCode == 37) {
+        keyboard.left = true;
+    }
+    if (e.keyCode == 38) {
+        keyboard.up = true;
+    }
+    if (e.keyCode == 40) {
+        keyboard.down = true;
+    }
+    if (e.keyCode == 32) {
+        keyboard.space = true;
+    }
+
+});
+
+
+window.addEventListener('keyup', (e) => {
+    if (e.keyCode == 39) {
+        keyboard.right = false;
+    }
+    if (e.keyCode == 37) {
+        keyboard.left = false;
+    }
+    if (e.keyCode == 38) {
+        keyboard.up = false;
+    }
+    if (e.keyCode == 40) {
+        keyboard.down = false;
+    }
+    if (e.keyCode == 32) {
+        keyboard.space = false;
+    }
+
+});
+
+
+        function startGame() {
+            canvas = document.getElementById('Canvas');
+            ctx = canvas.getContext('2d');
+            loadImages();
+            setInterval(update, 1000/25);
+            draw();
+            // calculate
+
+        }
+
+        function update() {
+            if(keyboard.up) {
+                rocket.y -=1;
+            }
+
+            if(keyboard.down) {
+                rocket.x -=1;
+            }
+        
+        }
+
+        function loadImages() {
+            backgroundImage.src = 'Images/background.jpg';
+            rocket.img = new Image();
+            rocket.img.src = rocket.src;
+
+
+        }
+
+        function draw () {
+            ctx.drawImage(backgroundImage, 0, 0)
+            ctx.drawImage(rocket.img, rocket.x, rocket.y, rocket.width, rocket.height);
+            
+
+
+            requestAnimationFrame(draw);
+        }
+
+
+    </script>
+</head>
+<body onload="startGame()">
+    <canvas id="Canvas" width="1280" height="874"></canvas>
+    
+</body>
+</html>
